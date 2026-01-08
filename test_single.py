@@ -26,7 +26,7 @@ model.load_state_dict(ckpt['state_dict'])
 
 
 # Point cloud
-pcl = np.loadtxt(args.input_xyz)
+pcl = np.load(args.input_xyz)
 pcl = torch.FloatTensor(pcl)
 pcl, center, scale = NormalizeUnitSphere.normalize(pcl)
 pcl = pcl.to(args.device)
@@ -37,4 +37,4 @@ pcl_denoised = pcl_denoised * scale + center
 print('[INFO] Finished denoising.')
 
 print('[INFO] Saving denoised point cloud to: %s' % args.output_xyz)
-np.savetxt(args.output_xyz, pcl_denoised, fmt='%.8f')
+np.save(args.output_xyz, pcl_denoised)
